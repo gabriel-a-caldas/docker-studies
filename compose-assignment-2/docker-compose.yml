@@ -1,0 +1,22 @@
+# create your drupal and postgres config here, based off the last assignment
+services:
+
+  custom-drupal:
+    image: drupal:latest
+    ports:
+      - 8080:80
+    volumes:
+      - /var/www/html/modules
+      - /var/www/html/profiles
+      - /var/www/html/themes
+      - /var/www/html/sites
+    restart: always
+
+  postgres:
+    image: mariadb:latest
+    environment:
+      MARIADB_ROOT_PASSWORD: mariadb
+      MARIADB_DATABASE: mariadb
+      MARIADB_USER: mariadb
+      MARIADB_PASSWORD: mariadb
+    restart: always
