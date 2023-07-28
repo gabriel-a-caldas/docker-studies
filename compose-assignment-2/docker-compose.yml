@@ -2,7 +2,8 @@
 services:
 
   custom-drupal:
-    image: drupal:latest
+    image: custom-drupal
+    build: .
     ports:
       - 8080:80
     volumes:
@@ -12,11 +13,13 @@ services:
       - /var/www/html/sites
     restart: always
 
-  postgres:
+  mariadb:
     image: mariadb:latest
     environment:
       MARIADB_ROOT_PASSWORD: mariadb
       MARIADB_DATABASE: mariadb
       MARIADB_USER: mariadb
       MARIADB_PASSWORD: mariadb
+    volumes:
+      - /var/lib/mysql
     restart: always
