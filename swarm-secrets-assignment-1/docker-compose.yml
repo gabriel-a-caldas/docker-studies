@@ -1,0 +1,38 @@
+# create your drupal and postgres config here, based off the last assignment
+services:
+
+  web-server:
+    image: drupal:9
+    ports:
+      - 8080:80
+    volumes:
+      - /var/www/html/modules
+      - /var/www/html/profiles
+      - /var/www/html/themes
+      - /var/www/html/sites
+
+  mariadb:
+    image: mariadb:latest
+    environment:
+      MARIADB_ROOT_PASSWORD_FILE: /run/secrets/mariadb_rootpwd
+      MARIADB_DATABASE_FILE: /run/secrets/mariadb_db
+      MARIADB_USER_FILE: /run/secrets/mariadb_user
+      MARIADB_PASSWORD_FILE: /run/secrets/mariadb_pwd
+    secrets:
+      - mariadb_rootpwd
+      - mariadb_db
+      - mariadb_user
+      - mariadb_pwd
+    volumes:
+      - /var/lib/mysql
+
+secrets:
+  mariadb_rootpwd:
+    external: true
+  mariadb_db:
+    external: true
+  mariadb_user:
+    external: true
+  mariadb_pwd:
+    external: true
+
